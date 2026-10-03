@@ -1,245 +1,474 @@
 (function () {
-'use strict';
+  'use strict';
 
-const KEY = 'JF_RIBBON_COLOR_V5';
+  const KEY = '__JF_RIBBON_COLOR_V5__';
 
-if (window[KEY]) {
-console.log('[RibbonColor] Already running');
-return;
-}
-
-const state = (window[KEY] = {
-itemId: null,
-colors: new Map(),
-loading: new Set(),
-lastUrl: location.href
-});
-
-console.log('[RibbonColor] Started');
-
-/* =========================================================
-GET CURRENT ITEM
-========================================================= */
-
-function getItemId() {
-const match = location.hash.match(/[?&]id=([^&]+)/);
-return match ? decodeURIComponent(match[1]) : null;
-}
-
-/* =========================================================
-FIND VISIBLE RIBBON
-========================================================= */
-
-function getVisibleRibbon() {
-for (const ribbon of document.querySelectorAll('.detailRibbon')) {
-const { width, height, top, bottom } =
-ribbon.getBoundingClientRect();
-
-  if (
-    width > 0 &&
-    height > 0 &&
-    bottom > 0 &&
-    top < window.innerHeight
-  ) {
-    return ribbon;
-  }
-}
-
-return null;
-
-}
-
-/* =========================================================
-APPLY COLOR
-========================================================= */
-
-function applyColor(rgb, itemId) {
-if (getItemId() !== itemId) return;
-
-const ribbon = getVisibleRibbon();
-
-if (!ribbon) {
-  console.log('[RibbonColor] Ribbon not ready');
-  return;
-}
-
-ribbon.style.setProperty(
-  'background',
-  `rgb(${rgb})`,
-  'important'
-);
-
-ribbon.style.setProperty(
-  'opacity',
-  '0.8',
-  'important'
-);
-
-console.log('[RibbonColor] Applied:', rgb);
-
-}
-
-/* =========================================================
-EXTRACT COLOR
-========================================================= */
-
-async function extractColor(itemId) {
-
-if (state.loading.has(itemId)) return;
-
-const cached = state.colors.get(itemId);
-
-if (cached) {
-  console.log('[RibbonColor] Cache:', cached);
-  applyColor(cached, itemId);
-  return;
-}
-
-state.loading.add(itemId);
-
-const url =
-  `${location.origin}/Items/${encodeURIComponent(itemId)}/Images/Primary`;
-
-console.log('[RibbonColor] Primary:', url);
-
-try {
-  const response = await fetch(url, {
-    credentials: 'include'
-  });
-
-  if (!response.ok) {
-    throw new Error(`HTTP ${response.status}`);
+  if (window[KEY]) {
+    console.log('[RibbonColor] V5 already running — EXIT');
+    return;
   }
 
-  const blob = await response.blob();
+  const state = window[KEY] = {
+    itemId: null,
+    colors: new Map(),
+    loading: new Set(),
+    lastUrl: location.href,
+    shadowCard: null
+  };
 
-  if (getItemId() !== itemId) return;
+  console.log('[RibbonColor] V5 STARTED');
 
-  const blobUrl = URL.createObjectURL(blob);
 
-  try {
-    const img = new Image();
+  function getItemId() {
 
-    await new Promise((resolve, reject) => {
-      img.onload = resolve;
-      img.onerror = reject;
-      img.src = blobUrl;
-    });
+    const match =
+      location.hash.match(/[?&]id=([^&]+)/);
 
-    const size = 32;
-    const canvas = document.createElement('canvas');
+    return match
+      ? decodeURIComponent(match[1])
+      : null;
+  }
 
-    canvas.width = size;
-    canvas.height = size;
 
-    const ctx = canvas.getContext('2d', {
-      willReadFrequently: true
-    });
+  function getVisibleRibbon() {
 
-    ctx.drawImage(img, 0, 0, size, size);
+    const ribbons = [
+      ...document.querySelectorAll('.detailRibbon')
+    ];
 
-    const pixels = ctx.getImageData(
-      0,
-      0,
-      size,
-      size
-    ).data;
+    for (const ribbon of ribbons) {
 
-    let r = 0;
-    let g = 0;
-    let b = 0;
-    let count = 0;
+      const rect =
+        ribbon.getBoundingClientRect();
 
-    for (let i = 0; i < pixels.length; i += 4) {
-      const red = pixels[i];
-      const green = pixels[i + 1];
-      const blue = pixels[i + 2];
+      if (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        rect.bottom > 0 &&
+        rect.top < window.innerHeight
+      ) {
+        return ribbon;
+      }
+    }
 
-      const brightness =
-        (red + green + blue) / 3;
+    return null;
+  }
 
-      if (brightness < 30 || brightness > 220) {
-        continue;
+
+  function getCurrentCard(itemId) {
+
+    if (!itemId) {
+      return null;
+    }
+
+    const posters =
+      document.querySelectorAll(
+        '.detailPageWrapperContainer .cardImageContainer'
+      );
+
+    const target =
+      '/Items/' + itemId + '/';
+
+    for (const poster of posters) {
+
+      const background =
+        getComputedStyle(poster).backgroundImage;
+
+      if (
+        background &&
+        background.includes(target)
+      ) {
+        return poster.parentElement?.parentElement?.parentElement || null;
+      }
+    }
+
+    return null;
+  }
+
+
+  function applyPosterShadow(itemId) {
+
+    if (getItemId() !== itemId) {
+      return;
+    }
+
+    const card =
+      getCurrentCard(itemId);
+
+    if (!card) {
+
+      setTimeout(function () {
+        applyPosterShadow(itemId);
+      }, 250);
+
+      return;
+    }
+
+    if (
+      state.shadowCard &&
+      state.shadowCard !== card
+    ) {
+      state.shadowCard.style.removeProperty(
+        'box-shadow'
+      );
+    }
+
+    card.style.setProperty(
+      'box-shadow',
+    '0 12px 24px 4px rgba(0, 0, 0, 0.75)',
+      'important'
+    );
+
+    state.shadowCard = card;
+
+    console.log(
+      '[RibbonColor] POSTER SHADOW APPLIED'
+    );
+  }
+
+
+  function applyColor(rgb, itemId) {
+
+    if (getItemId() !== itemId) {
+      return;
+    }
+
+    const ribbon =
+      getVisibleRibbon();
+
+    if (!ribbon) {
+
+      setTimeout(function () {
+        applyColor(rgb, itemId);
+      }, 250);
+
+      return;
+    }
+
+    ribbon.style.setProperty(
+      'background',
+      `rgba(${rgb}, 0.55)`,
+      'important'
+    );
+
+    ribbon.style.setProperty(
+      'opacity',
+      '1',
+      'important'
+    );
+
+    console.log(
+      '[RibbonColor] APPLIED:',
+      rgb
+    );
+  }
+
+
+  async function extractColor(itemId) {
+
+    if (state.loading.has(itemId)) {
+      return;
+    }
+
+    if (state.colors.has(itemId)) {
+
+      const rgb =
+        state.colors.get(itemId);
+
+      applyColor(
+        rgb,
+        itemId
+      );
+
+      applyPosterShadow(
+        itemId
+      );
+
+      return;
+    }
+
+    state.loading.add(itemId);
+
+    const url =
+      location.origin +
+      '/Items/' +
+      encodeURIComponent(itemId) +
+      '/Images/Primary';
+
+    console.log(
+      '[RibbonColor] PRIMARY:',
+      url
+    );
+
+    try {
+
+      const response =
+        await fetch(
+          url,
+          {
+            credentials: 'include'
+          }
+        );
+
+      if (!response.ok) {
+        throw new Error(
+          'HTTP ' + response.status
+        );
       }
 
-      r += red;
-      g += green;
-      b += blue;
-      count++;
+      const blob =
+        await response.blob();
+
+      if (getItemId() !== itemId) {
+
+        state.loading.delete(itemId);
+        return;
+      }
+
+      const blobUrl =
+        URL.createObjectURL(blob);
+
+      try {
+
+        const img =
+          new Image();
+
+        await new Promise(
+          function (resolve, reject) {
+
+            img.onload = resolve;
+            img.onerror = reject;
+            img.src = blobUrl;
+
+          }
+        );
+
+
+        const size = 32;
+
+        const canvas =
+          document.createElement(
+            'canvas'
+          );
+
+        canvas.width = size;
+        canvas.height = size;
+
+        const ctx =
+          canvas.getContext(
+            '2d',
+            {
+              willReadFrequently: true
+            }
+          );
+
+        ctx.drawImage(
+          img,
+          0,
+          0,
+          size,
+          size
+        );
+
+
+        const pixels =
+          ctx.getImageData(
+            0,
+            0,
+            size,
+            size
+          ).data;
+
+
+        let r = 0;
+        let g = 0;
+        let b = 0;
+        let count = 0;
+
+
+        for (
+          let i = 0;
+          i < pixels.length;
+          i += 4
+        ) {
+
+          const red =
+            pixels[i];
+
+          const green =
+            pixels[i + 1];
+
+          const blue =
+            pixels[i + 2];
+
+
+          const brightness =
+            (red + green + blue) / 3;
+
+
+          if (
+            brightness < 30 ||
+            brightness > 220
+          ) {
+            continue;
+          }
+
+
+          r += red;
+          g += green;
+          b += blue;
+
+          count++;
+        }
+
+
+        if (!count) {
+          throw new Error(
+            'No usable pixels'
+          );
+        }
+
+
+        const rgb =
+          Math.round(r / count) +
+          ', ' +
+          Math.round(g / count) +
+          ', ' +
+          Math.round(b / count);
+
+
+        state.colors.set(
+          itemId,
+          rgb
+        );
+
+        state.loading.delete(
+          itemId
+        );
+
+
+        console.log(
+          '[RibbonColor] COLOR:',
+          rgb
+        );
+
+
+        applyColor(
+          rgb,
+          itemId
+        );
+
+        applyPosterShadow(
+          itemId
+        );
+
+      } finally {
+
+        URL.revokeObjectURL(
+          blobUrl
+        );
+      }
+
+    } catch (error) {
+
+      state.loading.delete(
+        itemId
+      );
+
+      console.error(
+        '[RibbonColor] ERROR:',
+        error
+      );
     }
-
-    if (!count) {
-      throw new Error('No usable pixels');
-    }
-
-const rgb = [
-  Math.round((r / count) * 0.9),
-  Math.round((g / count) * 0.9),
-  Math.round((b / count) * 0.9)
-].join(', ');
-
-    state.colors.set(itemId, rgb);
-
-    console.log('[RibbonColor] Color:', rgb);
-
-    applyColor(rgb, itemId);
-
-  } finally {
-    URL.revokeObjectURL(blobUrl);
   }
 
-} catch (error) {
-  console.error('[RibbonColor] Error:', error);
 
-} finally {
-  state.loading.delete(itemId);
-}
+  function handleItem(itemId) {
 
-}
+    if (!itemId) {
+      return;
+    }
 
-/* =========================================================
-HANDLE ITEM
-========================================================= */
+    if (itemId === state.itemId) {
 
-function handleItem(itemId) {
-if (!itemId || itemId === state.itemId) return;
+      applyPosterShadow(
+        itemId
+      );
 
-state.itemId = itemId;
+      return;
+    }
 
-console.log('[RibbonColor] New item:', itemId);
 
-const cached = state.colors.get(itemId);
+    if (state.shadowCard) {
 
-if (cached) {
-  applyColor(cached, itemId);
-  return;
-}
+      state.shadowCard.style.removeProperty(
+        'box-shadow'
+      );
 
-extractColor(itemId);
+      state.shadowCard = null;
+    }
 
-}
 
-/* =========================================================
-WATCH URL
-========================================================= */
+    state.itemId = itemId;
 
-setInterval(() => {
-if (location.href === state.lastUrl) return;
+    console.log(
+      '[RibbonColor] NEW ITEM:',
+      itemId
+    );
 
-state.lastUrl = location.href;
 
-const itemId = getItemId();
+    if (state.colors.has(itemId)) {
 
-console.log('[RibbonColor] URL changed:', itemId);
+      const rgb =
+        state.colors.get(itemId);
 
-handleItem(itemId);
+      applyColor(
+        rgb,
+        itemId
+      );
 
-}, 100);
+      applyPosterShadow(
+        itemId
+      );
 
-/* =========================================================
-START
-========================================================= */
+      return;
+    }
 
-handleItem(getItemId());
+
+    extractColor(
+      itemId
+    );
+  }
+
+
+  setInterval(function () {
+
+    const url =
+      location.href;
+
+    if (url === state.lastUrl) {
+      return;
+    }
+
+    state.lastUrl = url;
+
+    const itemId =
+      getItemId();
+
+    console.log(
+      '[RibbonColor] URL CHANGED:',
+      itemId
+    );
+
+    handleItem(
+      itemId
+    );
+
+  }, 100);
+
+
+  handleItem(
+    getItemId()
+  );
 
 })();
