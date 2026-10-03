@@ -1,5 +1,6 @@
+
 /* =========================================================
-   1. HEADER
+HEADER
 ========================================================= */
 .skinHeader-withBackground,
 .skinHeader.semiTransparent {
@@ -22,26 +23,19 @@
 }
 
 /* =========================================================
-   2. CARDS
+CARDS / ITEMS
 ========================================================= */
-.layout-desktop .itemsContainer .card {
-  overflow: visible !important;
+.layout-desktop .itemsContainer .card .cardBox-bottompadded {
+  margin-bottom: 0 !important;
 }
 
 .layout-desktop .itemsContainer .card .cardBox {
   margin: 1em;
   transition: transform 0.2s;
-  overflow: visible !important;
-  z-index: 1;
 }
 
 .layout-desktop .itemsContainer .card:hover .cardBox {
   transform: scale(1.1);
-  z-index: 10;
-}
-
-.layout-desktop .itemsContainer .card .cardBox-bottompadded {
-  margin-bottom: 1.8em !important;
 }
 
 .layout-desktop .itemsContainer .card .cardOverlayContainer {
@@ -52,7 +46,27 @@
   border: unset;
 }
 
-/* Prevent text clipping on hover (Seasons section) */
+/* Prevent hover zoom from clipping text */
+.layout-desktop .itemsContainer .card {
+  overflow: visible !important;
+}
+
+.layout-desktop .itemsContainer .card .cardBox {
+  overflow: visible !important;
+  z-index: 1;
+}
+
+.layout-desktop .itemsContainer .card:hover .cardBox {
+  transform: scale(1.1);
+  z-index: 10;                    /* bring the scaled card above neighbours */
+}
+
+/* Extra space under the cards so the scaled text has room */
+.layout-desktop .itemsContainer .card .cardBox-bottompadded {
+  margin-bottom: 1.8em !important;
+}
+
+/* Specifically help the Seasons / Children section */
 #listChildrenCollapsible .card,
 #listChildrenCollapsible .cardBox,
 #listChildrenCollapsible .cardText {
@@ -60,7 +74,7 @@
 }
 
 /* =========================================================
-   3. RIBBON & DETAIL BUTTONS
+RIBBON / CONTAINER VISIBILITY
 ========================================================= */
 .detailRibbon *,
 .detailPagePrimaryContainer,
@@ -83,7 +97,7 @@
 .layout-desktop .nameContainer,
 .layout-desktop .itemMiscInfo,
 .mediaInfoItem {
-  color: #fff !important;
+  color: #ffffff !important;
   margin-bottom: 0 !important;
 }
 
@@ -96,8 +110,8 @@
 .mainDetailButtons .material-symbols-outlined,
 .mainDetailButtons i,
 .mainDetailButtons svg {
-  color: #fff !important;
-  fill: #000 !important;
+  color: #ffffff !important;
+  fill: #000000 !important;
 }
 
 .nameContainer .itemMiscInfo .mainDetailButtons::before,
@@ -105,26 +119,21 @@
   color: #00a4dc !important;
 }
 
-/* ---------------------------------------------------------
-   POSTER DROP SHADOW
-   Shadow falls downward onto the color-changing ribbon
---------------------------------------------------------- */
-.layout-desktop .detailPagePrimaryContainer .cardImageContainer {
-  position: relative !important;
-  z-index: 10 !important;
-  filter: drop-shadow(0 20px 16px rgba(0, 0, 0, 0.85)) !important;
-}
-
 /* =========================================================
-   4. BACKDROP
+BACKDROP
 ========================================================= */
 .backdropImageFadeIn {
-  animation: backdrop-fadein 0.001s ease-in both;
+  -webkit-animation: backdrop-fadein 0.001s ease-in normal both;
+  animation: backdrop-fadein 0.001s ease-in normal both;
 }
 
 @keyframes backdrop-fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .layout-desktop .backdropContainer {
@@ -148,7 +157,7 @@
 }
 
 /* =========================================================
-   5. SCROLLING GRADIENT
+SCROLLING GRADIENT
 ========================================================= */
 .layout-desktop .detailPageWrapperContainer {
   position: relative !important;
@@ -169,7 +178,18 @@
 }
 
 /* =========================================================
-   6. PRIMARY METADATA ORDER
+MAIN CONTENT
+========================================================= */
+.layout-desktop .tagline {
+  font-size: 1.5em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-top: 0em !important;
+  margin-bottom: 0 !important;
+}
+
+/* =========================================================
+DETAIL SECTION ORDER (primary metadata)
 ========================================================= */
 .detailSection {
   display: flex;
@@ -181,20 +201,17 @@
   display: contents;
 }
 
+/* Everything else defaults to the end */
 .detailSectionContent > * {
   order: 10;
 }
 
-/* 1. Tagline */
-.tagline {
+/* Tagline */
+  .tagline {
   order: 1 !important;
-  font-size: 1.5em !important;
-  font-weight: 600 !important;
-  line-height: 1.3 !important;
-  margin-top: 3 !important;
 }
 
-/* 2. Birth / Death info */
+/* Birth / death information */
 #itemBirthday,
 #itemDeathDate,
 #itemBirthLocation {
@@ -202,93 +219,120 @@
   margin-bottom: 2px;
 }
 
-/* 3. Overview */
+/* Overview */
 .overview,
 .overview-controls {
-  order: 3 !important;
-  margin: -2px 0 0;
+  order: 1 !important;
+  margin-top: -2px;
+  margin-bottom: 0;
   font-size: 1.18rem;
 }
 
-/* 4. Item details (Director, Writer, etc.) */
+/* Item details */
 .itemDetailsGroup {
   order: 5 !important;
   margin-bottom: 3em;
 }
 
-/* 5. Tags + Seasons */
-.itemTags,
-#listChildrenCollapsible {
+/* Tags */
+.itemTags {
   order: 6 !important;
   margin-top: 0;
 }
 
-/* =========================================================
-   7. HIDDEN SECTIONS
-========================================================= */
+/* Seasons */
+#listChildrenCollapsible {
+  order: 6 !important;
+
+}
+
+
+
+
+/* Next Up */
+.nextUpSection {
+  order: 6 !important;
+  margin-top: 0;
+  display: none !important;
+}
+
+/* Hide these */
 .itemGenres,
-.trackSelections,
-.itemExternalLinks,
-.nextUpSection,
+.trackSelections {
+  display: none !important;
+}
+
+/* External links */
+.itemExternalLinks {
+  order: 7 !important;
+  margin-top: 0;
+  margin-bottom: 0;
+  display: none !important;
+}
 #scenesCollapsible,
-#collectionsCollapsible {
+#collectionsCollapsible  {
   display: none !important;
 }
 
 /* =========================================================
-   8. SECONDARY SECTIONS ORDER
-   (Specials → Cast → Similar)
+SECONDARY SECTIONS – Specials ABOVE Cast
+(This is the important fix)
 ========================================================= */
 .detailPageSecondaryContainer {
   display: flex !important;
   flex-direction: column !important;
 }
 
+/* Default order for everything in the secondary container */
 .detailPageSecondaryContainer > * {
   order: 50;
 }
 
-/* Special Features */
+/* Special Features first */
 #specialsCollapsible {
   order: 10 !important;
-  margin: 1.5em 0 0;
+  margin-top: 1.5em;
+  margin-bottom: 0;
 }
 
-/* Music Videos / Additional Parts */
+/* Other extras right after specials */
 #musicVideosCollapsible,
 #additionalPartsCollapsible {
   order: 15 !important;
   margin-bottom: 0;
 }
 
-/* Cast & Crew */
+/* Cast & Crew after specials */
 #castCollapsible {
   order: 20 !important;
   margin-bottom: 0;
 }
 
-/* Guest Stars */
+/* Guest Stars right after Cast */
 #guestCastCollapsible {
   order: 21 !important;
   margin-bottom: 0;
 }
 
-/* Similar / More Like This */
+/* Similar / More Like This later */
 #similarCollapsible {
   order: 30 !important;
   margin-bottom: 0;
 }
 
+/* Everything else stays lower */
 .verticalSection {
   margin-bottom: 0;
 }
 
 /* =========================================================
-   9. CAST SPACING
+CAST & CREW spacing
 ========================================================= */
 .layout-desktop #castCollapsible,
 .layout-desktop .verticalSection:has(.peopleHeader),
 .layout-desktop .peopleHeader {
   margin-top: 2em !important;
-  padding: 2em 0 !important;
+  padding-top: 2em !important;
+  padding-bottom: 2em !important;
 }
+ 
