@@ -105,6 +105,16 @@
   color: #00a4dc !important;
 }
 
+/* ---------------------------------------------------------
+   POSTER DROP SHADOW
+   Shadow falls downward onto the color-changing ribbon
+--------------------------------------------------------- */
+.layout-desktop .detailPagePrimaryContainer .cardImageContainer {
+  position: relative !important;
+  z-index: 10 !important;
+  filter: drop-shadow(0 20px 16px rgba(0, 0, 0, 0.85)) !important;
+}
+
 /* =========================================================
    4. BACKDROP
 ========================================================= */
