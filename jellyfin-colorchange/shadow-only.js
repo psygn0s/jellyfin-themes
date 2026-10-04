@@ -1,7 +1,7 @@
 (function () {
   'use strict';
 
-  const KEY = '__JF_SHADOWS_V1__';
+  const KEY = '__JF_SHADOWS_V4__';
 
   if (window[KEY]) {
     console.log('[JF Shadows] Already running — EXIT');
@@ -17,21 +17,29 @@
      POSTER SHADOW — EDIT THESE
   ========================================================= */
 
-  const POSTER_SHADOW_X = 0;
-  const POSTER_SHADOW_Y = 12;
-  const POSTER_SHADOW_BLUR = 24;
+  const POSTER_SHADOW_X = 2;
+  const POSTER_SHADOW_Y = 2;
+  const POSTER_SHADOW_BLUR = 35;
   const POSTER_SHADOW_SPREAD = 4;
-  const POSTER_SHADOW_OPACITY = 0.75;
+  const POSTER_SHADOW_OPACITY = 0.35;
 
 
   /* =========================================================
      RIBBON SHADOW — EDIT THESE
   ========================================================= */
 
-  const RIBBON_SHADOW_BOTTOM = -3;
-  const RIBBON_SHADOW_HEIGHT = 4;
-  const RIBBON_SHADOW_BLUR = 3;
-  const RIBBON_SHADOW_OPACITY = 0.25;
+  const RIBBON_SHADOW_BOTTOM = -0;
+  const RIBBON_SHADOW_HEIGHT = 8;
+  const RIBBON_SHADOW_BLUR = 20;
+  const RIBBON_SHADOW_OPACITY = 1.0;
+
+
+  /* =========================================================
+     STATE
+  ========================================================= */
+
+  let lastUrl = location.href;
+  let posterCard = null;
 
 
   /* =========================================================
@@ -76,7 +84,10 @@
         background &&
         background.includes(target)
       ) {
-        return poster.parentElement?.parentElement?.parentElement || null;
+        return (
+          poster.parentElement?.parentElement?.parentElement
+          || null
+        );
       }
     }
 
@@ -88,22 +99,29 @@
      POSTER DROP SHADOW
   ========================================================= */
 
-  function applyPosterShadow(itemId) {
+  function applyPosterShadow() {
 
-    if (getItemId() !== itemId) {
-      return;
+    const itemId =
+      getItemId();
+
+    if (!itemId) {
+      return false;
     }
 
     const card =
       getCurrentCard(itemId);
 
     if (!card) {
+      return false;
+    }
 
-      setTimeout(function () {
-        applyPosterShadow(itemId);
-      }, 250);
-
-      return;
+    if (
+      posterCard &&
+      posterCard !== card
+    ) {
+      posterCard.style.removeProperty(
+        'box-shadow'
+      );
     }
 
     card.style.setProperty(
@@ -112,125 +130,70 @@
       'important'
     );
 
-    console.log(
-      '[JF Shadows] POSTER SHADOW APPLIED'
-    );
+    posterCard = card;
+
+    return true;
   }
 
 
   /* =========================================================
-     RIBBON DROP SHADOW
+     RIBBON SHADOW CSS
+     Inject the shadow as a CSS pseudo-element.
+     Jellyfin can rebuild the ribbon without removing it.
   ========================================================= */
 
-  function applyRibbonShadow() {
+  function installRibbonShadowCSS() {
 
-    const ribbon =
-      document.querySelector('.detailRibbon');
+    const STYLE_ID =
+      'jf-ribbon-shadow-style';
 
-    if (!ribbon) {
-
-      setTimeout(
-        applyRibbonShadow,
-        250
-      );
-
+    if (
+      document.getElementById(STYLE_ID)
+    ) {
       return;
     }
 
-    ribbon.style.setProperty(
-      'position',
-      'relative',
-      'important'
-    );
+    const style =
+      document.createElement('style');
 
-    let shadow =
-      ribbon.querySelector(':scope > .jf-ribbon-shadow');
+    style.id =
+      STYLE_ID;
+    style.textContent = `
+      .detailRibbon {
+        position: relative !important;
+      }
 
-    if (!shadow) {
+      .detailRibbon::after {
+        content: "" !important;
+        position: absolute !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: ${RIBBON_SHADOW_BOTTOM}px !important;
+        height: ${RIBBON_SHADOW_HEIGHT}px !important;
+        background: rgba(0, 0, 0, ${RIBBON_SHADOW_OPACITY}) !important;
+        filter: blur(${RIBBON_SHADOW_BLUR}px) !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+      }
+    `;
 
-      shadow =
-        document.createElement('div');
 
-      shadow.className =
-        'jf-ribbon-shadow';
-
-      shadow.style.setProperty(
-        'position',
-        'absolute',
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'left',
-        '0',
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'right',
-        '0',
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'bottom',
-        `${RIBBON_SHADOW_BOTTOM}px`,
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'height',
-        `${RIBBON_SHADOW_HEIGHT}px`,
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'background',
-        `rgba(0, 0, 0, ${RIBBON_SHADOW_OPACITY})`,
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'filter',
-        `blur(${RIBBON_SHADOW_BLUR}px)`,
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'pointer-events',
-        'none',
-        'important'
-      );
-
-      shadow.style.setProperty(
-        'z-index',
-        '-1',
-        'important'
-      );
-
-      ribbon.appendChild(shadow);
-    }
+    document.head.appendChild(style);
 
     console.log(
-      '[JF Shadows] RIBBON SHADOW APPLIED'
+      '[JF Shadows] RIBBON SHADOW CSS INSTALLED'
     );
   }
 
 
   /* =========================================================
-     APPLY ALL SHADOWS
+     APPLY
   ========================================================= */
 
-  function applyShadows() {
+  function apply() {
 
-    const itemId =
-      getItemId();
-
-    if (itemId) {
-      applyPosterShadow(itemId);
-    }
-
-    applyRibbonShadow();
+    installRibbonShadowCSS();
+    applyPosterShadow();
   }
 
 
@@ -238,33 +201,59 @@
      ROUTE MONITOR
   ========================================================= */
 
-  let lastUrl =
-    location.href;
-
   setInterval(function () {
 
     const url =
       location.href;
 
-    if (url === lastUrl) {
-      return;
+    if (url !== lastUrl) {
+
+      lastUrl = url;
+
+      if (posterCard) {
+
+        posterCard.style.removeProperty(
+          'box-shadow'
+        );
+
+        posterCard = null;
+      }
+
+      console.log(
+        '[JF Shadows] NEW PAGE:',
+        getItemId()
+      );
     }
 
-    lastUrl = url;
+    apply();
 
-    console.log(
-      '[JF Shadows] URL CHANGED'
-    );
-
-    applyShadows();
-
-  }, 100);
+  }, 250);
 
 
   /* =========================================================
-     INITIALIZE
+     DOM OBSERVER
   ========================================================= */
 
-  applyShadows();
+  const observer =
+    new MutationObserver(function () {
+
+      apply();
+
+    });
+
+  observer.observe(
+    document.body,
+    {
+      childList: true,
+      subtree: true
+    }
+  );
+
+
+  /* =========================================================
+     INITIAL STARTUP
+  ========================================================= */
+
+  apply();
 
 })();
