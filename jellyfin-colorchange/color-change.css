@@ -1,4 +1,4 @@
-
+```css
 /* =========================================================
 HEADER
 ========================================================= */
@@ -58,7 +58,7 @@ CARDS / ITEMS
 
 .layout-desktop .itemsContainer .card:hover .cardBox {
   transform: scale(1.1);
-  z-index: 10;                    /* bring the scaled card above neighbours */
+  z-index: 10;
 }
 
 /* Extra space under the cards so the scaled text has room */
@@ -76,6 +76,26 @@ CARDS / ITEMS
 /* =========================================================
 RIBBON / CONTAINER VISIBILITY
 ========================================================= */
+
+.detailRibbon {
+  position: relative;
+}
+
+/* Ribbion Shadow */
+.detailRibbon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.25);
+  filter: blur(5px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+
 .detailRibbon *,
 .detailPagePrimaryContainer,
 .detailPagePrimaryContainer *,
@@ -207,7 +227,7 @@ DETAIL SECTION ORDER (primary metadata)
 }
 
 /* Tagline */
-  .tagline {
+.tagline {
   order: 1 !important;
 }
 
@@ -243,11 +263,7 @@ DETAIL SECTION ORDER (primary metadata)
 /* Seasons */
 #listChildrenCollapsible {
   order: 6 !important;
-
 }
-
-
-
 
 /* Next Up */
 .nextUpSection {
@@ -269,8 +285,9 @@ DETAIL SECTION ORDER (primary metadata)
   margin-bottom: 0;
   display: none !important;
 }
+
 #scenesCollapsible,
-#collectionsCollapsible  {
+#collectionsCollapsible {
   display: none !important;
 }
 
@@ -335,4 +352,4 @@ CAST & CREW spacing
   padding-top: 2em !important;
   padding-bottom: 2em !important;
 }
- 
+```
