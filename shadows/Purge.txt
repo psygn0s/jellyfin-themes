@@ -1,0 +1,4 @@
+https://cdn.jsdelivr.net/gh/psygn0s/jellyfin-themes@latest/jellyfin-colorchange/color-change.css
+
+
+@import url("https://cdn.jsdelivr.net/gh/psygn0s/jellyfin-themes@latest/jellyfin-colorchange/color-change.css");
