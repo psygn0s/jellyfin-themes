@@ -4,6 +4,15 @@ The theme combines custom CSS with a JavaScript layer that adds soft drop shadow
 
 A custom **desktop-focused Jellyfin theme** designed to give the detail page a cleaner, darker, more cinematic look while keeping the familiar Jellyfin interface.
 
+![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows/Screenshots/1.png)
+
+![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows/Screenshots/3.png)
+
+![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows/Screenshots/4.png)
+
+![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows/Screenshots/7.png)
+
+
 ---
 
 # ✨ Features
