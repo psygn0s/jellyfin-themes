@@ -316,6 +316,64 @@ SECONDARY SECTIONS – Specials ABOVE Cast
 }
 
 /* =========================================================
+Collections Page
+========================================================= */
+
+/* Enlarge the individual portrait cards inside collections */
+.collectionItemsContainer .card.portraitCard {
+    width: 220px !important;
+    margin: 6px !important;
+}
+
+/* Keep correct 2:3 ratio */
+.collectionItemsContainer .card.portraitCard .cardPadder-portrait {
+    padding-bottom: 150% !important;
+}
+
+/* Slightly larger title */
+.collectionItemsContainer .card.portraitCard .cardText-first {
+    font-size: 1.05em !important;
+}
+
+/* Hide section titles */
+.collectionItems .sectionTitle,
+.collectionItems .sectionTitle-cards,
+.collectionItems .sectionTitleContainer {
+    display: none !important;
+}
+
+/* Fix weird characters on the card image icon */
+.card .cardImageIcon {
+    display: none !important;
+}
+
+/* Hide itemDetailsGroup + itemExternalLinks only on collection pages */
+.itemDetailPage:has(.collectionItems) .itemDetailsGroup,
+.itemDetailPage:has(.collectionItems) .itemExternalLinks,
+.collectionItems ~ .itemDetailsGroup,
+.collectionItems ~ .itemExternalLinks,
+.detailPagePrimaryContent:has(.collectionItems) .itemDetailsGroup,
+.detailPagePrimaryContent:has(.collectionItems) .itemExternalLinks {
+    display: none !important;
+}
+
+/* Larger overview text on collection pages */
+.itemDetailPage:has(.collectionItems) .overview.detail-clamp-text,
+.itemDetailPage:has(.collectionItems) .overview {
+    font-size: 1.35em !important;
+    line-height: 1.55 !important;
+    max-width: 1000px !important;
+    margin-bottom: 35px !important;
+}
+
+/* Show full overview (remove clamp) */
+.itemDetailPage:has(.collectionItems) .overview.detail-clamp-text {
+    -webkit-line-clamp: unset !important;
+    display: block !important;
+    overflow: visible !important;
+}
+
+/* =========================================================
 CAST & CREW spacing
 ========================================================= */
 .layout-desktop #castCollapsible,
