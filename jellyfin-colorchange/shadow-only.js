@@ -20,18 +20,19 @@
   const POSTER_SHADOW_X = 2;
   const POSTER_SHADOW_Y = 2;
   const POSTER_SHADOW_BLUR = 35;
-  const POSTER_SHADOW_SPREAD = 4;
-  const POSTER_SHADOW_OPACITY = 0.35;
+  const POSTER_SHADOW_SPREAD = 4.5;
+  const POSTER_SHADOW_OPACITY = 0.45;
 
 
   /* =========================================================
      RIBBON SHADOW — EDIT THESE
   ========================================================= */
 
-  const RIBBON_SHADOW_BOTTOM = -0;
-  const RIBBON_SHADOW_HEIGHT = 8;
-  const RIBBON_SHADOW_BLUR = 20;
-  const RIBBON_SHADOW_OPACITY = 1.0;
+  const RIBBON_SHADOW_BOTTOM = -10;
+  const RIBBON_SHADOW_HEIGHT = 20;
+  const RIBBON_SHADOW_BLUR = 25;
+  const RIBBON_SHADOW_OPACITY = 50;
+
 
 
   /* =========================================================
