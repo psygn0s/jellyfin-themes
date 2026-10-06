@@ -212,25 +212,7 @@ const RIBBON_SHADOW_OPACITY = 50;
 
 ---
 
-## 🎨 Ribbon Color
 
-The ribbon uses a fixed dark gray in CSS:
-
-```css
-.detailRibbon {
-  background-color: rgba(45, 45, 45, .9) !important;
-}
-```
-
-Change the RGB or alpha to suit your preference.
-
----
-
-The theme relies on Jellyfin's existing DOM structure and CSS classes. Major Jellyfin frontend updates may therefore require changes to the CSS selectors.
-
-> ⚠️ **Note:** Custom CSS and JavaScript are generally version-dependent. If Jellyfin changes its frontend structure, some features may need to be updated.
-
----
 
 # ⭐ Credits
 
