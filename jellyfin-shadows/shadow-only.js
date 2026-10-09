@@ -1,321 +1,260 @@
-/* =========================================================
-   HEADER
-========================================================= */
-.detailLogo {
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: 30% center;
-  height: 16vh;
-  width: 25vw;
-  position: absolute;
-  right: 3vw;
-  top: 4vh;
-}
-.sidebarHeader {
-  color: #00a4dc;
-}
-/* =========================================================
-   CARDS / ITEMS
-========================================================= */
-.layout-desktop .itemsContainer .card .cardBox {
-  margin: 1em;
-  transition: transform 0.2s;
-}
-.layout-desktop .itemsContainer .card:hover .cardBox {
-  transform: scale(1.1);
-}
-.layout-desktop .itemsContainer .card .cardOverlayContainer {
-  background: unset;
-}
-.layout-desktop .itemsContainer .card .cardBox-bottompadded {
-  margin-bottom: 1.8em !important;
-}
-.itemSelectionPanel {
-  border: unset;
-}
-/* Allow scaled cards/text to extend outside their containers */
-#listChildrenCollapsible .card,
-#listChildrenCollapsible .cardBox,
-#listChildrenCollapsible .cardText {
-  overflow: visible !important;
-}
-/* =========================================================
-   RIBBON / DETAIL VISIBILITY
-========================================================= */
-.detailRibbon {
-  background-color: rgba(45, 45, 45, 0.9) !important;
-}
-.detailRibbon *,
-.detailPagePrimaryContainer,
-.detailPagePrimaryContainer *,
-.detailPageWrapperContainer *,
-.nameContainer,
-.nameContainer *,
-.itemMiscInfo,
-.itemMiscInfo *,
-.mediaInfoItem,
-.mainDetailButtons,
-.mainDetailButtons *,
-.detailButton,
-.detailButton * {
-  opacity: 1 !important;
-  filter: none !important;
-}
-.layout-desktop .itemName,
-.layout-desktop .nameContainer,
-.layout-desktop .itemMiscInfo,
-.mediaInfoItem {
-  color: #fff !important;
-  margin-bottom: 0 !important;
-}
-.mainDetailButtons {
-  padding-right: 4.5em !important;
-}
-.mainDetailButtons .detailButton,
-.mainDetailButtons .material-icons,
-.mainDetailButtons .material-symbols-outlined,
-.mainDetailButtons i,
-.mainDetailButtons svg {
-  color: #fff !important;
-  fill: #000 !important;
-}
-.nameContainer .itemMiscInfo .mainDetailButtons::before,
-.mainDetailButtons .detailButton-primary::before {
-  color: #00a4dc !important;
-}
-/* =========================================================
-   BACKDROP
-========================================================= */
-.layout-desktop .backdropContainer {
-  position: fixed !important;
-  inset: 0 !important;
-  width: 100vw !important;
-  height: 100vh !important;
-  z-index: 0 !important;
-}
-.layout-desktop .backdropImage.displayingBackdropImage {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  background-color: transparent !important;
-}
-.layout-desktop .backdropImage.displayingBackdropImage::after {
-  content: none !important;
-}
-/* =========================================================
-   SCROLLING GRADIENT
-========================================================= */
-.layout-desktop .detailPageWrapperContainer {
-  position: relative !important;
-  background: linear-gradient(
-    to bottom,
-    rgba(12, 12, 12, 0.25) 0%,
-    rgba(12, 12, 12, 0.35) 8vh,
-    rgba(12, 12, 12, 0.50) 15vh,
-    rgba(12, 12, 12, 0.72) 25vh,
-    rgba(12, 12, 12, 0.85) 40vh,
-    rgba(12, 12, 12, 0.95) 55vh,
-    #121212 75vh,
-    #121212 100%
-  ) !important;
-}
-.layout-desktop .detailPageWrapperContainer::before {
-  display: none !important;
-}
-/* =========================================================
-   MAIN CONTENT
-========================================================= */
-.layout-desktop .tagline {
-  order: 1 !important;
-  font-size: 1.5em !important;
-  font-weight: 600 !important;
-  line-height: 1.3 !important;
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-.detailSection {
-  display: flex;
-  flex-direction: column;
-  color: #fff !important;
-  margin-top: 20px;
- 
+(function () {
+  'use strict';
 
-}
-.detailSectionContent {
-  display: contents;
-}
-.detailSectionContent > * {
-  order: 10;
-}
-/* Birth / death information */
-#itemBirthday,
-#itemDeathDate,
-#itemBirthLocation {
-  order: 2 !important;
-  margin-bottom: 2px;
-}
-/* Overview */
-.overview,
-.overview-controls {
-  order: 3 !important;
-  margin-top: 0px;
-  margin-bottom: 0;
-  font-size: 1.18rem;
-}
-/* Item details */
-.itemDetailsGroup {
-  order: 5 !important;
-  margin-bottom: 3em;
-}
-/* Tags */
-.itemTags {
-  order: 6 !important;
-  margin-top: 0;
-  font-weight: normal !important;
-  font-size: 0.7rem !important;
-  color: #fff !important;
-}
-/* Seasons / Next Up */
-#listChildrenCollapsible {
-  order: 7 !important;
-}
-.nextUpSection {
-  order: 8 !important;
-  margin-top: 0;
-}
-/* Hidden detail sections */
-.itemGenres,
-.trackSelections,
-.itemExternalLinks,
-#scenesCollapsible,
-#collectionsCollapsible {
-  display: none !important;
-}
-/* =========================================================
-   SECONDARY SECTIONS
-========================================================= */
-.detailPageSecondaryContainer {
-  display: flex !important;
-  flex-direction: column !important;
-}
-.detailPageSecondaryContainer > * {
-  order: 50;
-}
-#specialsCollapsible {
-  order: 10 !important;
-  margin-top: 1.5em;
-  margin-bottom: 0;
-}
-#musicVideosCollapsible,
-#additionalPartsCollapsible {
-  order: 15 !important;
-  margin-bottom: 0;
-}
-#castCollapsible {
-  order: 20 !important;
-  margin-bottom: 0;
-}
-#guestCastCollapsible {
-  order: 21 !important;
-  margin-bottom: 0;
-}
-#similarCollapsible {
-  order: 30 !important;
-  margin-bottom: 0;
-}
-.verticalSection {
-  margin-bottom: 0;
-}
-/* =========================================================
-   COLLECTIONS PAGE
-========================================================= */
-/* Collection content fills the available page width */
-.itemDetailPage:has(.collectionItems) .collectionItems {
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0.0em 0 0 !important;
-  padding: 0 0% !important;
-  clear: both !important;
-  float: none !important;
-  position: relative !important;
-  left: 0 !important;
-  order: 20 !important;          /* ← force it below the overview */
-}
+  const KEY = '__JF_SHADOWS_V4__';
 
-/* Collection grid */
-.itemDetailPage:has(.collectionItems) .collectionItemsContainer {
-  display: flex !important;
-  flex-wrap: wrap !important;
-  justify-content: flex-start !important;
-  align-items: flex-start !important;
-  width: 100% !important;
-  max-width: none !important;
-  gap: 12px !important;
-}
+  if (window[KEY]) {
+    console.log('[JF Shadows] Already running — EXIT');
+    return;
+  }
 
-/* Keep overview early in the flex order */
-.itemDetailPage:has(.collectionItems) .overview,
-.itemDetailPage:has(.collectionItems) .overview.detail-clamp-text,
-.itemDetailPage:has(.collectionItems) .overview-controls {
-  order: 3 !important;
-  margin-top: 0.4em !important;
-  margin-bottom: 0.8em !important;
-}
-/* HIDE Genres */
-.itemDetailsGroup {
-  display: none !important;
+  window[KEY] = true;
+
+  console.log('[JF Shadows] STARTED');
 
 
-}
-/* -------------------------------------------------- */
+  /* =========================================================
+     POSTER SHADOW — EDIT THESE
+  ========================================================= */
 
-/* =========================================================
-   COLLECTION CARDS — LARGER, KEEP FULL IMAGE
-========================================================= */
-.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard {
-  width: 2000px !important;
-  flex: 0 0 190px !important;
-}
-.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardBox {
-  width: 190px !important;
-}
-.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardScalable {
-  width: 190px !important;
-}
-.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardPadder-portrait {
-  width: 190px !important;
-  padding-bottom: 142.72% !important;
-}
-.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardImageContainer {
-  width: 190px !important;
-}
-/* =========================================================
-   CAST & CREW
-========================================================= */
-.layout-desktop #castCollapsible,
-.layout-desktop .verticalSection:has(.peopleHeader),
-.layout-desktop .peopleHeader {
-  margin-top: 2em !important;
-  padding-top: 2em !important;
-  padding-bottom: 2em !important;
-}
-/* =========================================================
-   JELLYFIN MEDIA BAR
-========================================================= */
-#jf-media-bar {
-  position: relative;
-  height: 700px;
-  overflow: hidden;
-  background: #000;
-  padding: 0 !important;
-}
-/* =========================================================
-   MAIN DETAIL BUTTON HOVER
-========================================================= */
-.mainDetailButtons .detailButton:hover .material-icons,
-.mainDetailButtons .detailButton:hover .detailButton-icon,
-.mainDetailButtons .detailButton:focus .material-icons,
-.mainDetailButtons .detailButton:focus .detailButton-icon {
-  color: #00a4dc !important;
-}
+  const POSTER_SHADOW_X = 2;
+  const POSTER_SHADOW_Y = 2;
+  const POSTER_SHADOW_BLUR = 35;
+  const POSTER_SHADOW_SPREAD = 4.5;
+  const POSTER_SHADOW_OPACITY = 0.45;
+
+
+  /* =========================================================
+     RIBBON SHADOW — EDIT THESE
+  ========================================================= */
+
+  const RIBBON_SHADOW_BOTTOM = -10;
+  const RIBBON_SHADOW_HEIGHT = 20;
+  const RIBBON_SHADOW_BLUR = 25;
+  const RIBBON_SHADOW_OPACITY = 50;
+
+
+
+  /* =========================================================
+     STATE
+  ========================================================= */
+
+  let lastUrl = location.href;
+  let posterCard = null;
+
+
+  /* =========================================================
+     GET CURRENT ITEM ID
+  ========================================================= */
+
+  function getItemId() {
+
+    const match =
+      location.hash.match(/[?&]id=([^&]+)/);
+
+    return match
+      ? decodeURIComponent(match[1])
+      : null;
+  }
+
+
+  /* =========================================================
+     FIND CURRENT POSTER CARD
+  ========================================================= */
+
+  function getCurrentCard(itemId) {
+
+    if (!itemId) {
+      return null;
+    }
+
+    const posters =
+      document.querySelectorAll(
+        '.detailPageWrapperContainer .cardImageContainer'
+      );
+
+    const target =
+      '/Items/' + itemId + '/';
+
+    for (const poster of posters) {
+
+      const background =
+        getComputedStyle(poster).backgroundImage;
+
+      if (
+        background &&
+        background.includes(target)
+      ) {
+        return (
+          poster.parentElement?.parentElement?.parentElement
+          || null
+        );
+      }
+    }
+
+    return null;
+  }
+
+
+  /* =========================================================
+     POSTER DROP SHADOW
+  ========================================================= */
+
+  function applyPosterShadow() {
+
+    const itemId =
+      getItemId();
+
+    if (!itemId) {
+      return false;
+    }
+
+    const card =
+      getCurrentCard(itemId);
+
+    if (!card) {
+      return false;
+    }
+
+    if (
+      posterCard &&
+      posterCard !== card
+    ) {
+      posterCard.style.removeProperty(
+        'box-shadow'
+      );
+    }
+
+    card.style.setProperty(
+      'box-shadow',
+      `${POSTER_SHADOW_X}px ${POSTER_SHADOW_Y}px ${POSTER_SHADOW_BLUR}px ${POSTER_SHADOW_SPREAD}px rgba(0, 0, 0, ${POSTER_SHADOW_OPACITY})`,
+      'important'
+    );
+
+    posterCard = card;
+
+    return true;
+  }
+
+
+  /* =========================================================
+     RIBBON SHADOW CSS
+     Inject the shadow as a CSS pseudo-element.
+     Jellyfin can rebuild the ribbon without removing it.
+  ========================================================= */
+
+  function installRibbonShadowCSS() {
+
+    const STYLE_ID =
+      'jf-ribbon-shadow-style';
+
+    if (
+      document.getElementById(STYLE_ID)
+    ) {
+      return;
+    }
+
+    const style =
+      document.createElement('style');
+
+    style.id =
+      STYLE_ID;
+    style.textContent = `
+      .detailRibbon {
+        position: relative !important;
+      }
+
+      .detailRibbon::after {
+        content: "" !important;
+        position: absolute !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: ${RIBBON_SHADOW_BOTTOM}px !important;
+        height: ${RIBBON_SHADOW_HEIGHT}px !important;
+        background: rgba(0, 0, 0, ${RIBBON_SHADOW_OPACITY}) !important;
+        filter: blur(${RIBBON_SHADOW_BLUR}px) !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
+      }
+    `;
+
+
+    document.head.appendChild(style);
+
+    console.log(
+      '[JF Shadows] RIBBON SHADOW CSS INSTALLED'
+    );
+  }
+
+
+  /* =========================================================
+     APPLY
+  ========================================================= */
+
+  function apply() {
+
+    installRibbonShadowCSS();
+    applyPosterShadow();
+  }
+
+
+  /* =========================================================
+     ROUTE MONITOR
+  ========================================================= */
+
+  setInterval(function () {
+
+    const url =
+      location.href;
+
+    if (url !== lastUrl) {
+
+      lastUrl = url;
+
+      if (posterCard) {
+
+        posterCard.style.removeProperty(
+          'box-shadow'
+        );
+
+        posterCard = null;
+      }
+
+      console.log(
+        '[JF Shadows] NEW PAGE:',
+        getItemId()
+      );
+    }
+
+    apply();
+
+  }, 250);
+
+
+  /* =========================================================
+     DOM OBSERVER
+  ========================================================= */
+
+  const observer =
+    new MutationObserver(function () {
+
+      apply();
+
+    });
+
+  observer.observe(
+    document.body,
+    {
+      childList: true,
+      subtree: true
+    }
+  );
+
+
+  /* =========================================================
+     INITIAL STARTUP
+  ========================================================= */
+
+  apply();
+
+})();
