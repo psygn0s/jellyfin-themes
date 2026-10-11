@@ -175,6 +175,7 @@
   font-weight: normal !important;
   font-size: 0.7rem !important;
   color: #2b2b2b !important;
+     display: none !important;
 }
 /* Seasons / Next Up */
 #listChildrenCollapsible {
