@@ -30,7 +30,7 @@
      0.75 = more transparent
      0.50 = very transparent
   */
-  const RIBBON_OPACITY = 0.90;
+  const RIBBON_OPACITY = 0.50;
 
 
   /* Brightness
