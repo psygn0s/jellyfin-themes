@@ -1,4 +1,4 @@
-# 🌑 Psygn0sis Shadows Jellyfin Theme
+# 🌑 Psygn0sis Shadows v2 Jellyfin Theme
 
 The theme combines custom CSS with a JavaScript layer that adds soft drop shadows to the detail-page poster and a blurred shadow under the ribbon.
 
@@ -14,7 +14,7 @@ A custom **desktop-focused Jellyfin theme** designed to give the detail page a c
 
 ![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows-v2/Screenshots/5.png)
 
-![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows-v2/Screenshots/7.png)
+![Drop Shadow](https://github.com/psygn0s/jellyfin-themes/blob/main/jellyfin-shadows-v2/Screenshots/6.png)
 
 
 ---
@@ -108,7 +108,7 @@ Paste the following into the field:
 
 ```javascript
 const script = document.createElement('script');
-script.src = 'https://cdn.jsdelivr.net/gh/psygn0s/jellyfin-themes@latest/jellyfin-shadows/shadow-only.js';
+script.src = 'https://cdn.jsdelivr.net/gh/psygn0s/jellyfin-themes@latest/jellyfin-shadows-v2/shadow-v2.js';
 script.async = true;
 document.head.appendChild(script);
 ```
@@ -124,7 +124,7 @@ Click **Save**.
 Copy this into Jellyfin → Dashboard → Branding → Custom CSS:
 
 ```css
-@import url("https://cdn.jsdelivr.net/gh/psygn0s/jellyfin-themes@latest/jellyfin-shadows/shadow-only.css");
+@import url("https://cdn.jsdelivr.net/gh/psygn0s/jellyfin-themes@latest/jellyfin-shadows-v2/shadow-v2.css");
 ```
 
 Paste it into Jellyfin's **Custom CSS** field.
