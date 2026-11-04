@@ -1,4 +1,4 @@
-
+@import url("https://cdn.jsdelivr.net/gh/intro-skipper/intro-skipper-css@main/skip-button.min.css");
 /* =========================================================
 HEADER
 ========================================================= */
@@ -164,24 +164,19 @@ BACKDROP
 
 /* =========================================================
 SCROLLING GRADIENT
-Colors come from the poster via jellyfin-gradient-color.js:
-  --jf-grad-rgb : tint for the translucent stops
-  --jf-bg-rgb   : very dark solid color for the gradient's end and
-                  the page background
-Both fall back to neutral 23, 23, 23 (#171717) if the script hasn't
-run or no color has loaded yet.
 ========================================================= */
 .layout-desktop .detailPageWrapperContainer {
   position: relative !important;
   background: linear-gradient(
     to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0) 15vh,
-    rgba(var(--jf-grad-rgb, 23, 23, 23), 0.35) 30vh,
-    rgba(var(--jf-grad-rgb, 23, 23, 23), 0.60) 45vh,
-    rgba(var(--jf-grad-rgb, 23, 23, 23), 0.75) 60vh,
-    rgb(var(--jf-bg-rgb, 23, 23, 23)) 95vh,
-    rgb(var(--jf-bg-rgb, 23, 23, 23)) 100%
+    rgba(12, 12, 12, 0.25) 0%,
+    rgba(12, 12, 12, 0.35) 8vh,
+    rgba(12, 12, 12, 0.50) 15vh,
+    rgba(12, 12, 12, 0.72) 25vh,
+    rgba(12, 12, 12, 0.85) 40vh,
+    rgba(12, 12, 12, 0.95) 55vh,
+    #121212 75vh,
+    #121212 100%
   ) !important;
 }
 
