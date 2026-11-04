@@ -1,0 +1,447 @@
+
+/* =========================================================
+HEADER
+========================================================= */
+.skinHeader-withBackground,
+.skinHeader.semiTransparent {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+.detailLogo {
+  background-repeat: no-repeat;
+  background-size: contain;
+  height: 16vh;
+  position: absolute;
+  right: 3vw;
+  top: 4vh;
+  width: 25vw;
+  background-position: 30% center;
+}
+
+.sidebarHeader {
+  color: #00a4dc;
+}
+
+/* =========================================================
+CARDS / ITEMS
+========================================================= */
+.layout-desktop .itemsContainer .card .cardBox-bottompadded {
+  margin-bottom: 0 !important;
+}
+
+.layout-desktop .itemsContainer .card .cardBox {
+  margin: 1em;
+  transition: transform 0.2s;
+}
+
+.layout-desktop .itemsContainer .card:hover .cardBox {
+  transform: scale(1.1);
+}
+
+.layout-desktop .itemsContainer .card .cardOverlayContainer {
+  background: unset;
+}
+
+.itemSelectionPanel {
+  border: unset;
+}
+
+/* Prevent hover zoom from clipping text */
+.layout-desktop .itemsContainer .card {
+  overflow: visible !important;
+}
+
+.layout-desktop .itemsContainer .card .cardBox {
+  overflow: visible !important;
+  z-index: 1;
+}
+
+.layout-desktop .itemsContainer .card:hover .cardBox {
+  transform: scale(1.1);
+  z-index: 10;
+}
+/* Extra space under the cards so the scaled text has room */
+.layout-desktop .itemsContainer .card .cardBox-bottompadded {
+  margin-bottom: 1.8em !important;
+}
+
+
+/* Specifically help the Seasons / Children section */
+#listChildrenCollapsible .card,
+#listChildrenCollapsible .cardBox,
+#listChildrenCollapsible .cardText {
+  overflow: visible !important;
+}
+
+/* =========================================================
+RIBBON / CONTAINER VISIBILITY
+========================================================= */
+
+.detailRibbon {
+  position: relative;
+  margin-bottom: 1.8em !important;
+}
+
+.detailRibbon *,
+.detailPagePrimaryContainer,
+.detailPagePrimaryContainer *,
+.detailPageWrapperContainer *,
+.nameContainer,
+.nameContainer *,
+.itemMiscInfo,
+.itemMiscInfo *,
+.mediaInfoItem,
+.mainDetailButtons,
+.mainDetailButtons *,
+.detailButton,
+.detailButton * {
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+.layout-desktop .itemName,
+.layout-desktop .nameContainer,
+.layout-desktop .itemMiscInfo,
+.mediaInfoItem {
+  color: #ffffff !important;
+  margin-bottom: 0 !important;
+}
+
+.mainDetailButtons {
+  padding-right: 4.5em !important;
+}
+
+.mainDetailButtons .detailButton,
+.mainDetailButtons .material-icons,
+.mainDetailButtons .material-symbols-outlined,
+.mainDetailButtons i,
+.mainDetailButtons svg {
+  color: #ffffff !important;
+  fill: #000000 !important;
+}
+
+.nameContainer .itemMiscInfo .mainDetailButtons::before,
+.mainDetailButtons .detailButton-primary::before {
+  color: #00a4dc !important;
+}
+
+/* =========================================================
+BACKDROP
+========================================================= */
+.backdropImageFadeIn {
+  -webkit-animation: backdrop-fadein 0.001s ease-in normal both;
+  animation: backdrop-fadein 0.001s ease-in normal both;
+}
+
+@keyframes backdrop-fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.layout-desktop .backdropContainer {
+  position: fixed !important;
+  inset: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: -1 !important;
+}
+
+.layout-desktop .backdropImage.displayingBackdropImage {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: transparent !important;
+}
+
+.layout-desktop .backdropImage.displayingBackdropImage::after {
+  content: none !important;
+}
+
+/* =========================================================
+SCROLLING GRADIENT
+Colors come from the poster via jellyfin-gradient-color.js:
+  --jf-grad-rgb : tint for the translucent stops
+  --jf-bg-rgb   : very dark solid color for the gradient's end and
+                  the page background
+Both fall back to neutral 23, 23, 23 (#171717) if the script hasn't
+run or no color has loaded yet.
+========================================================= */
+.layout-desktop .detailPageWrapperContainer {
+  position: relative !important;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 15vh,
+    rgba(var(--jf-grad-rgb, 23, 23, 23), 0.35) 30vh,
+    rgba(var(--jf-grad-rgb, 23, 23, 23), 0.60) 45vh,
+    rgba(var(--jf-grad-rgb, 23, 23, 23), 0.75) 60vh,
+    rgb(var(--jf-bg-rgb, 23, 23, 23)) 95vh,
+    rgb(var(--jf-bg-rgb, 23, 23, 23)) 100%
+  ) !important;
+}
+
+.layout-desktop .detailPageWrapperContainer::before {
+  display: none !important;
+}
+
+/* =========================================================
+MAIN CONTENT
+========================================================= */
+.layout-desktop .tagline {
+  font-size: 1.0em !important;
+  font-weight: 600 !important;
+  line-height: 1.3 !important;
+  margin-top: 0em !important;
+  margin-bottom: 0 !important;
+}
+
+/* =========================================================
+SHADED FRAME – tagline + overview as one box
+The two are siblings, so the box is built from two halves that
+join seamlessly. Overview alone (no tagline) gets a full box.
+Shade follows the poster via --jf-bg-rgb.
+========================================================= */
+.layout-desktop .detailSectionContent > .tagline:not(.hide),
+.layout-desktop .detailSectionContent > .overview {
+  background: rgba(var(--jf-bg-rgb, 23, 23, 23), 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+}
+
+/* Tagline = top half */
+.layout-desktop .detailSectionContent > .tagline:not(.hide) {
+  border-bottom: none;
+  border-radius: 12px 12px 0 0;
+  padding: 0.9em 1.25em 0.2em;
+}
+
+/* Overview = full box on its own */
+.layout-desktop .detailSectionContent > .overview {
+  border-radius: 12px;
+  margin-top: 0;
+  margin-bottom: 1em;
+  padding: 0.9em 1.25em;
+}
+
+/* Overview directly under a tagline = bottom half */
+.layout-desktop .detailSectionContent > .tagline:not(.hide) + .overview {
+  border-top: none;
+  border-radius: 0 0 12px 12px;
+  padding-top: 0.2em;
+}
+
+/* =========================================================
+SHADED FRAMES – track selections, item details and tags (one box each)
+========================================================= */
+.layout-desktop .itemDetailsGroup,
+.layout-desktop .itemTags,
+.layout-desktop .trackSelections {
+  background: rgba(var(--jf-bg-rgb, 23, 23, 23), 0.55);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  padding: 0.9em 1.25em;
+  backdrop-filter: blur(6px);
+}
+
+/* Gap between the stacked boxes (replaces the old 3em bottom margin) */
+.layout-desktop .itemDetailsGroup {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.trackSelections {
+  margin-bottom: 1.0em !important;
+}
+
+/* =========================================================
+SHADED FRAME – birth date, birth place, death date as one box
+These are ids, not classes, and each one hides itself with .hide
+when it has no data. The box is built from whichever of them are
+showing: first visible = top, last visible = bottom, any between
+= middle. Order in the page: Birthday, Birth Location, Death Date.
+========================================================= */
+.layout-desktop .detailSectionContent > #itemBirthday:not(.hide),
+.layout-desktop .detailSectionContent > #itemBirthLocation:not(.hide),
+.layout-desktop .detailSectionContent > #itemDeathDate:not(.hide) {
+  background: rgba(var(--jf-bg-rgb, 23, 23, 23), 0.55);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  margin: 0;
+  padding: 0.15em 1.25em;
+}
+
+/* Top of the box: the first one showing */
+.layout-desktop .detailSectionContent > #itemBirthday:not(.hide),
+.layout-desktop .detailSectionContent > #itemBirthday.hide + #itemBirthLocation:not(.hide),
+.layout-desktop .detailSectionContent > #itemBirthday.hide + #itemBirthLocation.hide + #itemDeathDate:not(.hide) {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px 12px 0 0;
+  padding-top: 0.9em;
+}
+
+/* Bottom of the box: the last one showing */
+.layout-desktop .detailSectionContent > #itemDeathDate:not(.hide),
+.layout-desktop .detailSectionContent > #itemBirthLocation:not(.hide):has(+ #itemDeathDate.hide),
+.layout-desktop .detailSectionContent > #itemBirthday:not(.hide):has(+ #itemBirthLocation.hide + #itemDeathDate.hide) {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0 0 12px 12px;
+  padding-bottom: 0.9em;
+  margin-bottom: 1em;
+}
+
+/* Only one showing: it is both top and bottom, so round all corners */
+.layout-desktop .detailSectionContent > #itemBirthday:not(.hide):has(+ #itemBirthLocation.hide + #itemDeathDate.hide),
+.layout-desktop .detailSectionContent > #itemBirthday.hide + #itemBirthLocation:not(.hide):has(+ #itemDeathDate.hide),
+.layout-desktop .detailSectionContent > #itemBirthday.hide + #itemBirthLocation.hide + #itemDeathDate:not(.hide) {
+  border-radius: 12px;
+}
+/* Hide a box when there's nothing in it: either truly empty, or every
+   child is hidden by Jellyfin's .hide class. display: none also removes
+   the box's margins, so no stray gap is left. */
+.layout-desktop .itemDetailsGroup:empty,
+.layout-desktop .itemTags:empty,
+.layout-desktop .trackSelections:empty,
+.layout-desktop .detailSectionContent > .overview:empty,
+.layout-desktop .itemDetailsGroup:has(> *):not(:has(> :not(.hide))),
+.layout-desktop .itemTags:has(> *):not(:has(> :not(.hide))),
+.layout-desktop .trackSelections:has(> *):not(:has(> :not(.hide))) {
+  display: none !important;
+}
+
+/* Boxes the script found to have no visible content (.jf-empty):
+   drop the frame and its spacing. */
+.layout-desktop .jf-empty {
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  min-height: 0 !important;
+  backdrop-filter: none !important;
+}
+
+
+/* =========================================================
+DETAIL SECTION ORDER (primary metadata)
+========================================================= */
+.detailSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: -4px;
+}
+
+.detailSectionContent {
+  display: contents;
+}
+
+/* Everything else defaults to the end */
+.detailSectionContent > * {
+  order: 10;
+}
+
+/* Tagline */
+.tagline {
+  order: 1 !important;
+}
+
+/* Birth / death information (above the tagline + overview) */
+#itemBirthday,
+#itemDeathDate,
+#itemBirthLocation {
+  order: 0 !important;
+  margin-bottom: 2px;
+}
+
+/* Overview */
+.overview,
+.overview-controls {
+  order: 1 !important;
+  margin-top: -2px;
+  margin-bottom: 0;
+  font-size: 1.0rem;
+}
+
+/* Item details */
+.itemDetailsGroup {
+  order: 5 !important;
+  margin-bottom: 3em;
+}
+
+/* Tags */
+.itemTags {
+  order: 6 !important;
+  margin-top: 1.2em !important;
+  font-size: 0.85rem !important;
+}
+
+/* Seasons */
+#listChildrenCollapsible {
+  order: 6 !important;
+}
+/* HIDDEN */
+.nextUpSection,
+.itemExternalLinks,
+.itemGenres,
+#scenesCollapsible,
+#collectionsCollapsible {
+  display: none !important;
+}
+
+/* =========================================================
+   MAIN DETAIL BUTTON HOVER
+========================================================= */
+.mainDetailButtons .detailButton:hover .material-icons,
+.mainDetailButtons .detailButton:hover .detailButton-icon,
+.mainDetailButtons .detailButton:focus .material-icons,
+.mainDetailButtons .detailButton:focus .detailButton-icon {
+  color: #00a4dc !important;
+}
+
+/* =========================================================
+   COLLECTION CARDS — LARGER, KEEP FULL IMAGE
+========================================================= */
+.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard {
+  width: 2000px !important;
+  flex: 0 0 190px !important;
+}
+.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardBox {
+  width: 190px !important;
+}
+.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardScalable {
+  width: 190px !important;
+}
+.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardPadder-portrait {
+  width: 190px !important;
+  padding-bottom: 142.72% !important;
+}
+.itemDetailPage:has(.collectionItems) .collectionItemsContainer .portraitCard .cardImageContainer {
+  width: 190px !important;
+}
+
+/* =========================================================
+   HIDE TRANSLATE ICON
+========================================================= */
+.mediaInfoItem-audioLanguage > .material-icons {
+  display: none !important;
+}
+
+.mediaInfoItem-audioLanguage > .audio-languages-container {
+  margin-left: -0.1em;
+
+}
+/* =========================================================
+   HIDE SPOTLIGHT TAGLINE
+========================================================= */
+
+.spotlight-tagline {
+    visibility: hidden !important;
+}
+:root {
+    /* Skip button timing */
+    --skip-hide-duration: 8s;
+}
