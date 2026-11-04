@@ -102,7 +102,7 @@ Click:
 
 Give the script a name such as:
 
-`Psygn0sis Shadows`
+`Psygn0sis Shadows v2`
 
 Paste the following into the field:
 
@@ -153,7 +153,7 @@ The theme should now be active.
 
 ## 🌑 Backdrop Darkness
 
-The scrolling gradient can be adjusted in `shadow-only.css`:
+The scrolling gradient can be adjusted in `shadow-v2.css`:
 
 ```css
 background: linear-gradient(
@@ -191,7 +191,7 @@ transform: scale(1.05);
 
 ## 🖼️ Poster Shadow
 
-Poster shadow values are controlled at the top of `shadow-only.js`:
+Poster shadow values are controlled at the top of `shadow-v2.js`:
 
 ```javascript
 const POSTER_SHADOW_X = 2;
@@ -210,7 +210,7 @@ Examples:
 
 ## 🌑 Ribbon Shadow
 
-Ribbon shadow values are also at the top of `shadow-only.js`:
+Ribbon shadow values are also at the top of `shadow-v2.js`:
 
 ```javascript
 const RIBBON_SHADOW_BOTTOM = -10;
